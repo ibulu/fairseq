@@ -10,7 +10,7 @@ import os
 import socket
 import subprocess
 
-from singleprocess_train import main as single_process_main
+from train import main as single_process_main
 from fairseq import distributed_utils, options
 
 
@@ -30,7 +30,7 @@ def main(args):
                 raise e
             except FileNotFoundError as e:  # Slurm is not installed
                 pass
-    if args.distributed_init_method is None:
+    if args.distributed_init_method is None and args.distributed_port is None:
         raise ValueError('--distributed-init-method or --distributed-port '
                          'must be specified for distributed training')
 
